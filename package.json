@@ -1,0 +1,23 @@
+{
+  "name": "mern-token-auth",
+  "version": "0.0.0",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "~1.18.2",
+    "debug": "~2.6.9",
+    "dotenv": "^4.0.0",
+    "express": "~4.15.5",
+    "express-jwt": "^5.3.1",
+    "hoek": "^4.2.1",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^4.12.3",
+    "morgan": "~1.9.0",
+    "react-router-dom": "^4.2.2",
+    "serve-favicon": "~2.4.5"
+  }
+}
