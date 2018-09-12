@@ -8,7 +8,7 @@ var router = express.Router();
 
 // POST /auth/login route - returns a JWT
 router.post('/login', (req, res) => {
-
+  console.log(req.body);
   // Find out if the user exists (for login, they should)
   db.User.findOne({email: req.body.email})
   .then((user) => {
@@ -38,7 +38,8 @@ router.post('/login', (req, res) => {
 
 // POST /auth/signup route - create a user in the DB and then log them in
 router.post('/signup', function(req, res) {
-
+  console.log('BODY', req.body);
+  // console.log('REST', req)
   //TODO: First check if the user already exists
   db.User.findOne({ email: req.body.email })
   .then((user) => {

@@ -1,17 +1,22 @@
 require('dotenv').config();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const express = require('express');
 const expressJWT = require('express-jwt');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const path = require('path');
+
+// App instance
 const app = express();
 
 
 // Set up middleware
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({extended: false}));
 
 // Controllers
 app.use('/auth', expressJWT({
