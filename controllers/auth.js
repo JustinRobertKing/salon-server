@@ -1,16 +1,17 @@
 require('dotenv').config();
 var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var User = require('../models/user');
 var jwt = require('jsonwebtoken');
+var mongoose = require('mongoose');
+
+var db = require('../models');
+var router = express.Router();
 
 // POST /auth/login route - returns a JWT
-router.post('/login', function(req, res) {
+router.post('/login', (req, res) => {
 
   // Find out if the user exists (for login, they should)
-  User.findOne({email: req.body.email})
-  .then(function(user){
+  db.User.findOne({email: req.body.email})
+  .then((user) => {
     if(!user || !user.password){
       return res.status(403).send('User not found');
     }
@@ -22,14 +23,14 @@ router.post('/login', function(req, res) {
     }
 
     // The user is valid!!! :)
-    var token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
+    const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
       expiresIn: 60 * 60 * 24
     });
 
     // Send that token and the user info
     res.send({ user: user, token: token });
   })
-  .catch(function(err){
+  .catch((err) => {
     console.log('error was', err);
     return res.status(503).send('Database Error. Sad day. :(');
   });
@@ -39,8 +40,8 @@ router.post('/login', function(req, res) {
 router.post('/signup', function(req, res) {
 
   //TODO: First check if the user already exists
-  User.findOne({ email: req.body.email })
-  .then(function(user){
+  db.User.findOne({ email: req.body.email })
+  .then((user) => {
     // Database call was a success
     if(user){
       // If the user exists already, don't let them create a duplicate account. Instead they should log in.
@@ -48,21 +49,21 @@ router.post('/signup', function(req, res) {
     }
 
     // Great! This is a new user. Let's make them an account!
-    User.create(req.body)
-    .then(function(createdUser){
+    db.User.create(req.body)
+    .then((createdUser) => {
       // Make a token and send it as JSON, so the user can remain logged in
-      var token = jwt.sign(createdUser.toJSON(), process.env.JWT_SECRET, {
+      const token = jwt.sign(createdUser.toJSON(), process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 // 24 hours, in seconds
       });
 
       res.send({ user: createdUser, token: token })
     })
-    .catch(function(err){
+    .catch((err) => {
       console.log('err', err);
       res.status(500).send('Could not create user in DB');
     });
   })
-  .catch(function(err){
+  .catch((err) => {
     console.log('err', err);
     res.status(500).send('Database Error! :(');
   });
@@ -70,7 +71,7 @@ router.post('/signup', function(req, res) {
 
 // This is checked on a browser refresh
 router.post('/me/from/token', function(req, res) {
-  User.findById(req.user.id)
+  db.User.findById(req.user.id)
   .then(function(user){
     res.send({ user: user });
   })
@@ -81,29 +82,3 @@ router.post('/me/from/token', function(req, res) {
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
