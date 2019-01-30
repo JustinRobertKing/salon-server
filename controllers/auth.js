@@ -1,10 +1,9 @@
 require('dotenv').config();
-var express = require('express');
-var jwt = require('jsonwebtoken');
-var mongoose = require('mongoose');
+const express = require('express');
+const jwt = require('jsonwebtoken');
 
-var db = require('../models');
-var router = express.Router();
+const db = require('../models');
+const router = express.Router();
 
 // POST /auth/login route - returns a JWT
 router.post('/login', (req, res) => {
@@ -28,7 +27,7 @@ router.post('/login', (req, res) => {
     });
 
     // Send that token and the user info
-    res.send({ user: user, token: token });
+    res.send({ token: token });
   })
   .catch((err) => {
     console.log('error was', err);
@@ -39,7 +38,6 @@ router.post('/login', (req, res) => {
 // POST /auth/signup route - create a user in the DB and then log them in
 router.post('/signup', function(req, res) {
   console.log('BODY', req.body);
-  // console.log('REST', req)
   //TODO: First check if the user already exists
   db.User.findOne({ email: req.body.email })
   .then((user) => {
@@ -57,7 +55,7 @@ router.post('/signup', function(req, res) {
         expiresIn: 60 * 60 * 24 // 24 hours, in seconds
       });
 
-      res.send({ user: createdUser, token: token })
+      res.send({ token: token })
     })
     .catch((err) => {
       console.log('err', err);
@@ -70,7 +68,7 @@ router.post('/signup', function(req, res) {
   });
 });
 
-// This is checked on a browser refresh
+// This is what is returned when client queries for new user data
 router.post('/me/from/token', function(req, res) {
   db.User.findById(req.user.id)
   .then(function(user){

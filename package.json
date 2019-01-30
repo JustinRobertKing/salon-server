@@ -7,7 +7,7 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^3.0.0",
     "body-parser": "~1.18.2",
     "cors": "^2.8.4",
     "debug": "~2.6.9",

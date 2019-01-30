@@ -35,11 +35,14 @@ userSchema.set('toJSON', {
   }
 });
 
+// Returns true if password hashes match, false otherwise
 userSchema.methods.authenticated = function(password) {
   return bcrypt.compareSync(password, this.password);
 }
 
 // Mongoose's version of a beforeCreate hook
+// Change so that this doesn't happen on update, only create...
+// only if we want to allow password changes
 userSchema.pre('save', function(next) {
   var hash = bcrypt.hashSync(this.password, 10);
   // store the hash as the user's password
@@ -47,4 +50,5 @@ userSchema.pre('save', function(next) {
   next();
 });
 
+// Exporting the User model
 module.exports = mongoose.model('User', userSchema);
