@@ -69,7 +69,7 @@ router.post('/signup', function(req, res) {
 });
 
 // This is what is returned when client queries for new user data
-router.post('/me/from/token', function(req, res) {
+router.get('/current/user', function(req, res) {
   db.User.findById(req.user.id)
   .then(function(user){
     res.send({ user: user });
