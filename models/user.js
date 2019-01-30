@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
 
 var userSchema = new mongoose.Schema({
   name: {
@@ -23,32 +22,14 @@ var userSchema = new mongoose.Schema({
   }
 });
 
-// Override 'toJSON' to prevent the password from being returned with the user
-userSchema.set('toJSON', {
-  transform: function(doc, user, options) {
-    var returnJson = {
-      id: user._id,
-      email: user.email,
-      name: user.name
-    };
-    return returnJson;
-  }
-});
+// TODO: Override 'toJSON' to prevent the password from being returned with the user
 
-// Returns true if password hashes match, false otherwise
-userSchema.methods.authenticated = function(password) {
-  return bcrypt.compareSync(password, this.password);
-}
 
-// Mongoose's version of a beforeCreate hook
-// Change so that this doesn't happen on update, only create...
-// only if we want to allow password changes
-userSchema.pre('save', function(next) {
-  var hash = bcrypt.hashSync(this.password, 10);
-  // store the hash as the user's password
-  this.password = hash;
-  next();
-});
+// TODO: A helper function to authenticate with bcrypt
+
+
+// TODO: Find out Mongoose's version of a beforeCreate hook
+
 
 // Exporting the User model
 module.exports = mongoose.model('User', userSchema);
