@@ -34,6 +34,11 @@ function fromRequest(req){
 app.use('/auth', expressJWT({
 	secret: process.env.JWT_SECRET,
 	getToken: fromRequest
+}).unless({
+	path: [
+		{ url: '/auth/login', methods: ['POST'] },
+		{ url: '/auth/signup', methods: ['POST'] },
+	]
 }), require('./controllers/auth'));
 
 // This is the catch-all route. Ideally you don't get here unless you made a mistake on your front-end
