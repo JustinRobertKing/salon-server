@@ -36,7 +36,30 @@ router.post('/login', (req, res) => {
 router.post('/signup', (req, res) => {
 	console.log('In the POST /auth/signup route');
 	console.log(req.body);
-  res.send('POST /auth/signup');
+	db.User.findOne({ email: req.body.email })
+	.then(user => {
+		// If the user exists, do not let them create a duplicate account
+		if (user) {
+			res.status(409).send({ message: 'Email address already in use' })
+		}
+		// Good - they don't exist yet
+		db.User.create(req.body)
+		.then(createdUser => {
+			// We created a user. Make a token; send it.
+			const token = jwt.sign(createdUser.toJSON(), process.env.JWT_SECRET, {
+				expiresIn: 60 * 60 * 24 // 24 hours (in seconds)
+			});
+			res.send({ token });
+		})
+		.catch((error) => {
+			console.log('Error when creating user', error)
+			res.status(500).send({ message: 'Error creating user'})
+		});
+	})
+	.catch((error) => {
+		console.log('Error in POST /auth/signup', error);
+		return res.status(503).send({ message: 'Database Error' })
+	})
 });
 
 // This is what is returned when client queries for new user data
