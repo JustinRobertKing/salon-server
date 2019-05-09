@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
+const expressJWT = require('express-jwt')
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const path = require('path');
@@ -30,7 +31,10 @@ function fromRequest(req){
 // POST to /auth/login and /auth/signup
 // Remember to pass the JWT_SECRET to ExpressJWT (it will break without it!)
 // NOTE on ExpressJWT: The unless portion is only needed if you need exceptions
-app.use('/auth', require('./controllers/auth'));
+app.use('/auth', expressJWT({
+	secret: process.env.JWT_SECRET,
+	getToken: fromRequest
+}), require('./controllers/auth'));
 
 // This is the catch-all route. Ideally you don't get here unless you made a mistake on your front-end
 app.get('*', function(req, res, next) {
