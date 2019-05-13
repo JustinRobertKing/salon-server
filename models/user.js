@@ -26,7 +26,7 @@ let consultationSchema = new mongoose.Schema({
 	approved: {
 		type: Boolean,
 		required: false,
-	}
+	},
 	// products
 	products: {
 		type: [String],
@@ -39,7 +39,7 @@ let consultationSchema = new mongoose.Schema({
 	},
 	// estimate
 	estimate: {
-		type: number,
+		type: Number,
 		required: false,
 	}
 
@@ -88,7 +88,7 @@ let userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 99
   },
-  
+
   consultation: [consultationSchema],
 
   stylist_id: {
