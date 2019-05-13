@@ -2,11 +2,34 @@ let bcrypt = require('bcryptjs');
 let mongoose = require('mongoose');
 
 let userSchema = new mongoose.Schema({
-  name: {
+  firstname: {
     type: String,
     required: true,
     minlength: 1,
     maxlength: 99
+  },
+  lastname: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 99
+  },
+  referral: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 99
+  },
+  phone: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 99
+  },
+	stylist: {
+    type: Boolean,
+    required: true,
+    default: false
   },
   email: { // TODO: Need to add email validation
     type: String,
@@ -20,7 +43,24 @@ let userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
     maxlength: 99
-  }
+  },
+  consultation: {
+    type: Array,
+    required: false
+  },
+  stylist_id: {
+    type: String,
+    required: false
+  },
+  salon_id: {
+    type: String,
+    required: false
+  },
+  manager: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
 });
 
 // Override 'toJSON' to prevent the password from being returned with the user
@@ -33,8 +73,17 @@ userSchema.set('toJSON', {
     // WHITELIST:
     return {
       id: user._id,
-      name: user.name,
-      email: user.email
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      referral: user.referral,
+      phone: user.phone,
+      stylist: user.stylist,
+      stylist_id: user.stylist_id,
+      salon_id: user.salon_id,
+      manager: user.manager,
+      consultation: user.consultation,
+      firstname: user.firstname
     }
   }
 })
