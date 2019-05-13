@@ -1,6 +1,50 @@
 let bcrypt = require('bcryptjs');
 let mongoose = require('mongoose');
 
+let consultationSchema = new mongoose.Schema({
+	// currentHair
+	currentHair: {
+		type: [String],
+		required: true,
+	},
+	// dreamHair
+	dreamHair: {
+		type: [String],
+		required: true,
+	},
+	// clientComment
+	clientComment: {
+		type: [String],
+		required: true,
+	},
+	// stylistComment
+	stylistComment: {
+		type: [String],
+		required: false,
+	},
+	// approved
+	approved: {
+		type: Boolean,
+		required: false,
+	}
+	// products
+	products: {
+		type: [String],
+		required: false,
+	},
+	// apptLength
+	apptLength: {
+		type: [String],
+		required: false,
+	},
+	// estimate
+	estimate: {
+		type: number,
+		required: false,
+	}
+
+})
+
 let userSchema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -44,10 +88,9 @@ let userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 99
   },
-  consultation: {
-    type: Array,
-    required: false
-  },
+  
+  consultation: [consultationSchema],
+
   stylist_id: {
     type: String,
     required: false
