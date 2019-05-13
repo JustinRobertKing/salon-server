@@ -63,8 +63,15 @@ router.post('/signup', (req, res) => {
 });
 
 // This is what is returned when client queries for new user data
-router.get('/current/user', (req, res) => {
-  res.send('GET /auth/current/user STUB');
+router.post('/current/user', (req, res) => {
+	console.log('In the current user route', req.user)
+	if (!req.user || !req.user.id) {
+		return res.status(401).send({ message: 'Unauthorized' })
+	}
+	// NOTE: This is the user data from the time the token was issued
+	// WARNING: If you update the user, those changes will not be reflected here
+	// To avoid this, reissue a token when the user data is changed
+	res.send({ user: req.user })
 });
 
 module.exports = router;
