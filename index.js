@@ -41,6 +41,11 @@ app.use('/auth', expressJWT({
 	]
 }), require('./controllers/auth'));
 
+app.use('/consultation', expressJWT({
+	secret: process.env.JWT_SECRET,
+	getToken: fromRequest
+}), require('./controllers/consultation'));
+
 // This is the catch-all route. Ideally you don't get here unless you made a mistake on your front-end
 app.get('*', function(req, res, next) {
 	res.status(404).send({ message: 'Not Found' });
