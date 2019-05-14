@@ -11,7 +11,7 @@ let appointmentSchema = new mongoose.Schema({
 	},
 	stylist:{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'Client'
 	},
 	client:{
 		type: mongoose.Schema.Types.ObjectId,
@@ -19,4 +19,4 @@ let appointmentSchema = new mongoose.Schema({
 	}
 })
 
-module.exports = mongoose.model('Book', bookSchema)
+module.exports = mongoose.model('appointment', appointmentSchema)

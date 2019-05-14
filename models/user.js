@@ -1,50 +1,6 @@
 let bcrypt = require('bcryptjs');
 let mongoose = require('mongoose');
 
-let consultationSchema = new mongoose.Schema({
-	// currentHair
-	currentHair: {
-		type: [String],
-		required: true,
-	},
-	// dreamHair
-	dreamHair: {
-		type: [String],
-		required: true,
-	},
-	// clientComment
-	clientComment: {
-		type: [String],
-		required: true,
-	},
-	// stylistComment
-	stylistComment: {
-		type: [String],
-		required: false,
-	},
-	// approved
-	approved: {
-		type: Boolean,
-		required: false,
-	},
-	// products
-	products: {
-		type: [String],
-		required: false,
-	},
-	// apptLength
-	apptLength: {
-		type: [String],
-		required: false,
-	},
-	// estimate
-	estimate: {
-		type: Number,
-		required: false,
-	}
-
-})
-
 let userSchema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -58,19 +14,13 @@ let userSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 99
   },
-  referral: {
-    type: String,
-    required: true,
-    minlength: 1,
-    maxlength: 99
-  },
   phone: {
     type: String,
     required: true,
     minlength: 1,
     maxlength: 99
   },
-	stylist: {
+  stylist: {
     type: Boolean,
     required: true,
     default: false
@@ -87,22 +37,6 @@ let userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
     maxlength: 99
-  },
-
-  consultation: [consultationSchema],
-
-  stylist_id: {
-    type: String,
-    required: false
-  },
-  salon_id: {
-    type: String,
-    required: false
-  },
-  manager: {
-    type: Boolean,
-    required: true,
-    default: false
   },
 });
 
@@ -122,11 +56,6 @@ userSchema.set('toJSON', {
       referral: user.referral,
       phone: user.phone,
       stylist: user.stylist,
-      stylist_id: user.stylist_id,
-      salon_id: user.salon_id,
-      manager: user.manager,
-      consultation: user.consultation,
-      firstname: user.firstname
     }
   }
 })
