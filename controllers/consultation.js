@@ -4,10 +4,11 @@ const jwt = require('jsonwebtoken')
 const router = express.Router();
 const db = require('../models')
 
-// POST /consultation/display route - create a user in the DB and then log them in
+// POST /consultation route - create a consultation in the database
 router.post('/display', (req, res) => {
-	console.log('In the POST /consultation/display route');
+	console.log('In the POST /consultation route');
 	console.log(req.body);
+	res.send('hi zac')
 		// db.Consultation.create(req.body)
 		// .then(createdConsultation => {
 		// 	console.log('created consult', createdConsultation)
