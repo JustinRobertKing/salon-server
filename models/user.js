@@ -2,6 +2,10 @@ let bcrypt = require('bcryptjs');
 let mongoose = require('mongoose');
 
 let userSchema = new mongoose.Schema({
+  referral: {
+    type: String,
+    required: true
+  },
   firstname: {
     type: String,
     required: true,
