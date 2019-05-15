@@ -19,4 +19,4 @@ let appointmentSchema = new mongoose.Schema({
 	}
 })
 
-module.exports = mongoose.model('appointment', appointmentSchema)
+module.exports = mongoose.model('Appointment', appointmentSchema)

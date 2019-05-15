@@ -50,7 +50,33 @@ router.post('/signup', (req, res) => {
 				expiresIn: 60 * 60 * 24 // 24 hours (in seconds)
 			});
 			res.send({ token });
+
+			let uid = createdUser._id
+			//is this a client, or a stylist?
+			if (req.body.stylist === 'true'){
+				//make stylist collection entry
+				db.Stylist.create({ 
+					user: uid
+				})
+				
+				.catch((error) => {
+					console.log('Error when creating user', error)
+					res.status(500).send({ message: 'Error creating 2nd step of user'})
+				});
+
+			} else if (req.body.stylist === 'false') {
+				//make client collection entry
+				db.Client.create({ 
+					user: uid
+					
+				})
+				.catch((error) => {
+					console.log('Error when creating user', error)
+					res.status(500).send({ message: 'Error creating 2nd step of user'})
+				});
+			}
 		})
+	
 		.catch((error) => {
 			console.log('Error when creating user', error)
 			res.status(500).send({ message: 'Error creating user'})
