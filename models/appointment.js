@@ -5,8 +5,8 @@ let appointmentSchema = new mongoose.Schema({
 		type: Date,
 		required:false
 	},
-	end:{
-		type: Date,
+	length:{
+		type: Number,
 		required:false
 	},
 	stylist:{

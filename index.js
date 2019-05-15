@@ -52,10 +52,10 @@ app.use('/consultation', expressJWT({
 	getToken: fromRequest
 }), require('./controllers/consultation'));
 
-app.use('/profile', expressJWT({
+app.use('/landing', expressJWT({
 	secret: process.env.JWT_SECRET,
 	getToken: fromRequest
-}), require('./controllers/profile'));
+}), require('./controllers/landing'));
 
 // This is the catch-all route. Ideally you don't get here unless you made a mistake on your front-end
 app.get('*', function(req, res, next) {
