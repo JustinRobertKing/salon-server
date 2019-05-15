@@ -5,52 +5,22 @@ const router = express.Router();
 const db = require('../models')
 
 router.post('/', (req, res) => {
-	console.log('In the GET /profile route')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log(req.body.userId.id)
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
+	
 
 	db.Consultation.find({
 		stylist: req.body.userId.id
 	})
-	// .populate('client')
-	// .populate('stylist')
-	.then(foundConsultations => {
-		console.log('found', foundConsultations)
-		res.send(foundConsultations)
-	})
-	.catch((error) => {
-		console.log('Error when finding consultations', error)
-		res.status(500).send({ message: 'Error finding consultations'})
-	});
+		.populate({path:'client', populate: {path:'user'}})
+
+
+		.then(foundConsultations => {
+			console.log('found', foundConsultations)
+			res.send(foundConsultations)
+		})
+		.catch((error) => {
+			console.log('Error when finding consultations', error)
+			res.status(500).send({ message: 'Error finding consultations'})
+		});
 })
 
 router.get('/client', (req, res) => {

@@ -3,11 +3,11 @@ let mongoose = require('mongoose')
 let consultationSchema = new mongoose.Schema({
 	stylist:{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Client'
+		ref: 'Stylist'
 	},
 	client:{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Stylist'
+		ref: 'Client'
 	},
 	currentHair:{
 		type: [String],
