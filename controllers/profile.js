@@ -6,12 +6,12 @@ const db = require('../models')
 
 router.get('/', (req, res) => {
 	console.log('In the GET /profile route')
-	
+
 	db.Consultation.find({
-		stylist: '5cdb374f0f506034a72e6bd7',
-		approved: false
+		stylist: "5cdb374f0f506034a72e6bd7",
 	})
 	.then(foundConsultations => {
+		console.log('found', foundConsultations)
 		res.send(foundConsultations)
 	})
 	.catch((error) => {
