@@ -1,7 +1,7 @@
 let mongoose = require('mongoose')
 
 let stylistSchema = new mongoose.Schema({
-	userId:{
+	user:{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	},
@@ -14,6 +14,12 @@ let stylistSchema = new mongoose.Schema({
 		ref: 'Salon'
 	},
 
+
+
 })
 
-module.exports = mongoose.model('stylist', stylistSchema)
+
+
+
+
+module.exports = mongoose.model('Stylist', stylistSchema)

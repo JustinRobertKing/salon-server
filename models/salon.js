@@ -16,4 +16,4 @@ let salonSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('salon', salonSchema)
+module.exports = mongoose.model('Salon', salonSchema)

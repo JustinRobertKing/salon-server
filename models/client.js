@@ -1,7 +1,7 @@
 let mongoose = require('mongoose')
 
 let clientSchema = new mongoose.Schema({
-	userId:{
+	user:{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	},
@@ -11,4 +11,4 @@ let clientSchema = new mongoose.Schema({
 	},
 })
 
-module.exports = mongoose.model('client', clientSchema)
+module.exports = mongoose.model('Client', clientSchema)
