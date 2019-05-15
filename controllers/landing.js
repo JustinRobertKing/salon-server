@@ -5,7 +5,7 @@ const router = express.Router();
 const db = require('../models')
 
 router.post('/', (req, res) => {
-	
+
 
 	db.Consultation.find({
 		stylist: req.body.userId.id
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/client', (req, res) => {
-	console.log('In the GET /profile route')
+	console.log('In the GET /landing/client route')
 	db.Client.findOne({
 		id: req.user._id,
 	})
@@ -38,20 +38,20 @@ router.get('/client', (req, res) => {
 	});
 })
 
-router.post('/appointments', (req, res) => {
-	db.Appointment.create({
-		start: '5cdb374f0f506034a72e6bd7',
-		length: 89340,
-		stylist: '5cdb374f0f506034a72e6bd7',
-		client: '5cdb374f0f506034a72e6bd7'
+router.post('/appointment', (req, res) => {
+	console.log('In the POST /landing/appointment route')
+	db.Appointment.find({
+		stylist: req.body.userId.id
 	})
-	.then(createdConsultation => {
-		console.log('created consultation', createdConsultation)
-		res.send({ createdConsultation });
+	// .populate('client')
+	// .populate('stylist')
+	.then(foundAppointments => {
+		console.log('found', foundAppointments)
+		res.send(foundAppointments)
 	})
 	.catch((error) => {
-		console.log('Error when creating consultation', error)
-		res.status(500).send({ message: 'Error creating consultation'})
+		console.log('Error when finding appointments', error)
+		res.status(500).send({ message: 'Error finding appointments'})
 	});
 })
 

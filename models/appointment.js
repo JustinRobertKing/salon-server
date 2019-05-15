@@ -2,12 +2,12 @@ let mongoose = require('mongoose')
 
 let appointmentSchema = new mongoose.Schema({
 	start:{
-		type: Date,
-		required:false
+		type: Number,
+		required:true
 	},
 	length:{
 		type: Number,
-		required:false
+		required:true
 	},
 	stylist:{
 		type: mongoose.Schema.Types.ObjectId,
