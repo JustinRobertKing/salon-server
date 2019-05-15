@@ -34,7 +34,7 @@ let consultationSchema = new mongoose.Schema({
 		required: false,
 	},
 	apptLength: {
-		type: [String],
+		type: Number,
 		required: false,
 	},
 	estimate: {
