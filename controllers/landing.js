@@ -37,7 +37,6 @@ router.post('/', (req, res) => {
 	console.log('')
 	console.log('')
 	console.log('')
-
 	db.Consultation.find({
 		stylist: req.body.userId.id
 	})
@@ -70,7 +69,7 @@ router.get('/client', (req, res) => {
 
 router.post('/appointments', (req, res) => {
 	db.Appointment.create({
-		start: '5cdb374f0f506034a72e6bd7',
+		start: 1557798958,
 		length: 89340,
 		stylist: '5cdb374f0f506034a72e6bd7',
 		client: '5cdb374f0f506034a72e6bd7'
