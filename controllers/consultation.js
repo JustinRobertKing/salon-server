@@ -7,27 +7,6 @@ const db = require('../models')
 // POST /consultation route - create a consultation in the database
 router.post('/', (req, res) => {
 	console.log('In the POST /consultation route');
-	res.send(req.body)
-})
-
-router.get('/display', (req, res) => {
-	console.log('In the GET /consultation/display route')
-	db.Consultation.find({
-		stylist: '5cdb374f0f506034a72e6bd7',
-		client: '5cdb374f0f506034a72e6bd7'
-	})
-	.then(foundConsultations => {
-		res.send(foundConsultations)
-	})
-	.catch((error) => {
-		console.log('Error when finding consultations', error)
-		res.status(500).send({ message: 'Error finding consultations'})
-	});
-})
-// PUT /consultation/display - update consultation with stylist response
-router.post('/display', (req, res) => {
-	console.log('In the POST /consultation/display route');
-	// res.send(req.body)
 	db.Consultation.create({
 		stylist: '5cdb374f0f506034a72e6bd7',
 		client: '5cdb374f0f506034a72e6bd7',
@@ -54,6 +33,12 @@ router.post('/display', (req, res) => {
 		console.log('Error when creating consultation', error)
 		res.status(500).send({ message: 'Error creating consultation'})
 	});
+})
+
+// PUT /consultation/display - update consultation with stylist response
+router.post('/display', (req, res) => {
+	console.log('In the POST /consultation/display route');
+	// res.send(req.body)
 	// db.consultation.findOneAndUpdate(
 	// 	{ _id: req.params.id },
 	// 	req.body,
