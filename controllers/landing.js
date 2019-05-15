@@ -5,7 +5,7 @@ const router = express.Router();
 const db = require('../models')
 
 router.get('/', (req, res) => {
-	console.log('In the GET /profile route')
+	console.log('In the GET /profile route', req.body)
 	db.Consultation.find({
 		stylist: "5cdb374f0f506034a72e6bd7",
 	})
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 
 router.post('/appointments', (req, res) => {
 	db.Appointment.create({
-		start: '5cdb374f0f506034a72e6bd7',
+		start: 1557798958,
 		length: 89340,
 		stylist: '5cdb374f0f506034a72e6bd7',
 		client: '5cdb374f0f506034a72e6bd7'
