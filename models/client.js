@@ -6,7 +6,7 @@ let clientSchema = new mongoose.Schema({
 		ref: 'User'
 	},
 	stylist:{
-		type: [mongoose.Schema.Types.ObjectId],
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Client'
 	},
 })
