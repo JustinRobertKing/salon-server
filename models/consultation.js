@@ -18,11 +18,11 @@ let consultationSchema = new mongoose.Schema({
 		required: true,
 	},
 	clientComment: {
-		type: [String],
+		type: String,
 		required: true,
 	},
 	stylistComment: {
-		type: [String],
+		type: String,
 		required: false,
 	},
 	approved: {
@@ -44,4 +44,4 @@ let consultationSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('consultation', consultationSchema)
+module.exports = mongoose.model('Consultation', consultationSchema)
