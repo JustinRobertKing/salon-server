@@ -7,23 +7,14 @@ const db = require('../models')
 // POST /consultation route - create a consultation in the database
 router.post('/', (req, res) => {
 	console.log('In the POST /consultation route');
+	
+//update this to write real data
 	db.Consultation.create({
-		stylist: '5cdb374f0f506034a72e6bd7',
-		client: '5cdb374f0f506034a72e6bd7',
-		currentHair: [
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg',
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg',
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg',
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg',
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg'
-		],
-		dreamHair: [
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg',
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg',
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg',
-			'https://www.justcuts.com.au/media/500/Sea-salt-hair-tip.0.jpg'
-		],
-		clientComment: 'Pig pancetta bresaola, short loin beef pastrami kielbasa. Ball tip turkey shank bacon. Cow ground round sausage, buffalo bresaola prosciutto porchetta beef ribs short loin. Flank ribeye doner salami capicola. Andouille pig salami corned beef shoulder beef spare ribs venison. Filet mignon short loin strip steak tenderloin capicola.'
+		stylist: req.body.stylist,
+		client: req.body.client,
+		currentHair: req.body.currentHair,
+		dreamHair: req.body.dreamHair,
+		clientComment: req.body.clientComment
 	})
 	.then(createdConsultation => {
 		console.log('created consultation', createdConsultation)
