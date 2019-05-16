@@ -8,7 +8,7 @@ const db = require('../models')
 router.post('/', (req, res) => {
 	console.log('In the POST /consultation route');
 	
-//update this to write real data
+	
 	db.Consultation.create({
 		stylist: req.body.stylist,
 		client: req.body.client,

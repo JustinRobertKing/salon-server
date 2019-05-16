@@ -6,10 +6,14 @@ const db = require('../models')
 
 router.post('/', (req, res) => {
 
-
-	db.Consultation.find({
-		stylist: req.body.userId.id
+	db.Stylist.findOne({
+		user: req.body.userId.id
 	})
+	.then(foundUser=>{
+
+		db.Consultation.find({
+			stylist: foundUser
+		})
 		.populate({path:'client', populate: {path:'user'}})
 
 		.then(foundConsultations => {
@@ -20,7 +24,34 @@ router.post('/', (req, res) => {
 			console.log('Error when finding consultations', error)
 			res.status(500).send({ message: 'Error finding consultations'})
 		});
+
 	})
+		})
+
+
+router.post('/client', (req, res) => {
+	db.Client.findOne({
+		user: req.body.userId.id
+	})
+	.then(foundUser=>{
+
+		db.Consultation.find({
+			client: foundUser
+		})
+		.populate({path:'client', populate: {path:'user'}})
+		.populate({path:'stylist', populate: {path:'user'}})
+		.then(foundConsultations => {
+			console.log('found--------->', foundConsultations)
+			res.send(foundConsultations)
+		})
+		.catch((error) => {
+			console.log('Error when finding consultations', error)
+			res.status(500).send({ message: 'Error finding consultations'})
+		});
+
+	})
+	})
+
 
 router.get('/client', (req, res) => {
 	console.log('In the GET /landing/client route')
@@ -28,7 +59,15 @@ router.get('/client', (req, res) => {
 		id: req.user._id,
 	})
 	.then(foundConsultations => {
+		console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
 		console.log('found', foundConsultations)
+		console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
 		res.send(foundConsultations)
 	})
 	.catch((error) => {
