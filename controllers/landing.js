@@ -12,7 +12,6 @@ router.post('/', (req, res) => {
 	})
 		.populate({path:'client', populate: {path:'user'}})
 
-
 		.then(foundConsultations => {
 			console.log('found', foundConsultations)
 			res.send(foundConsultations)
@@ -21,7 +20,7 @@ router.post('/', (req, res) => {
 			console.log('Error when finding consultations', error)
 			res.status(500).send({ message: 'Error finding consultations'})
 		});
-})
+	})
 
 router.get('/client', (req, res) => {
 	console.log('In the GET /landing/client route')
