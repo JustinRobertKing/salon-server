@@ -24,9 +24,8 @@ router.post('/', (req, res) => {
 			console.log('Error when finding consultations', error)
 			res.status(500).send({ message: 'Error finding consultations'})
 		});
-
 	})
-		})
+})
 
 
 router.post('/client', (req, res) => {
@@ -50,7 +49,7 @@ router.post('/client', (req, res) => {
 		});
 
 	})
-	})
+})
 
 
 router.get('/client', (req, res) => {
@@ -69,6 +68,37 @@ router.get('/client', (req, res) => {
 	console.log('')
 	console.log('')
 		res.send(foundConsultations)
+	})
+	.catch((error) => {
+		console.log('Error when finding consultations', error)
+		res.status(500).send({ message: 'Error finding consultations'})
+	});
+})
+
+router.get('/', (req, res) => {
+	console.log('In the GET /landing/ route')
+	db.Stylist.findOne({
+		id: req.user._id,
+	})
+	.populate([{
+		path: 'client',
+		model: 'Client',
+		populate: {
+			path: 'user',
+			model: 'User'
+		},
+	}])
+	.then(foundStylist => {
+		console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+		console.log('found', foundStylist)
+		console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+		res.send(foundStylist)
 	})
 	.catch((error) => {
 		console.log('Error when finding consultations', error)
