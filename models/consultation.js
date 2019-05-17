@@ -9,14 +9,14 @@ let consultationSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Client'
 	},
-	currentHair:{
-		type: [String],
+	currentHair: [{
+		type: String,
 		required:true
-	},
-	dreamHair: {
-		type: [String],
+	}],
+	dreamHair: [{
+		type: String,
 		required: true,
-	},
+	}],
 	clientComment: {
 		type: String,
 		required: true,
@@ -29,10 +29,10 @@ let consultationSchema = new mongoose.Schema({
 		type: Boolean,
 		required: false,
 	},
-	products: {
-		type: [String],
+	products: [{
+		type: String,
 		required: false,
-	},
+	}],
 	apptLength: {
 		type: Number,
 		required: false,

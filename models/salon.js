@@ -5,10 +5,10 @@ let salonSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	manager:{
-		type: [mongoose.Schema.Types.ObjectId],
+	manager:[{
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
-	},
+	}],
 	details:{
 		type: String,
 		required: true

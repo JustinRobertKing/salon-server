@@ -9,8 +9,8 @@ let messageSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Stylist'
 	},
-	chat:{
-		type: [{
+	chat:[{
+		type: {
 			msg: {
 				type: String,
 				required:false
@@ -24,9 +24,9 @@ let messageSchema = new mongoose.Schema({
 				ref: 'User'
 			}
 
-		}],
+		},
 		required:false
-	},
+	}],
 })
 
 module.exports = mongoose.model('Message', messageSchema)
