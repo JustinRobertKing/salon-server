@@ -5,14 +5,41 @@ const router = express.Router();
 const db = require('../models')
 
 router.post('/', (req, res) => {
-
+//only unapproved consultations
 	db.Stylist.findOne({
-		user: req.body.userId.id
+		user: req.body.userId.id,
 	})
 	.then(foundUser=>{
 
 		db.Consultation.find({
-			stylist: foundUser
+			stylist: foundUser,
+			approved: false
+		})
+		.populate({path:'client', populate: {path:'user'}})
+
+		.then(foundConsultations => {
+			console.log('found', foundConsultations)
+			res.send(foundConsultations)
+		})
+		.catch((error) => {
+			console.log('Error when finding consultations', error)
+			res.status(500).send({ message: 'Error finding consultations'})
+		});
+
+	})
+		})
+
+router.post('/consultationsApproved', (req, res) => {
+//only approved consultations
+	db.Stylist.findOne({
+		user: req.body.userId.id
+		
+	})
+	.then(foundUser=>{
+
+		db.Consultation.find({
+			stylist: foundUser,
+			approved: true
 		})
 		.populate({path:'client', populate: {path:'user'}})
 
