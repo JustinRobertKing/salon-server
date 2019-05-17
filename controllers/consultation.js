@@ -8,7 +8,7 @@ const db = require('../models')
 router.post('/', (req, res) => {
 	console.log('In the POST /consultation route');
 	
-	
+
 	db.Consultation.create({
 		stylist: req.body.stylist,
 		client: req.body.client,
@@ -25,6 +25,41 @@ router.post('/', (req, res) => {
 		res.status(500).send({ message: 'Error creating consultation'})
 	});
 })
+
+
+// DELETE /consultation/display - update consultation with stylist response
+router.delete('/', (req, res) => {
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('In the DELETE /consultation/ route------');
+	console.log(req.body)
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	
+	db.Consultation.deleteOne({ 
+		_id: req.body._id
+	}
+	)
+		.then(deletedConsultation => {
+			console.log('Delted consult', deletedConsultation)
+		})
+		.catch((error) => {
+			console.log('Error when creating consultation', error)
+			res.status(500).send({ message: 'Error creating consultation'})
+		});
+});
+
 
 // PUT /consultation/display - update consultation with stylist response
 router.put('/display', (req, res) => {
