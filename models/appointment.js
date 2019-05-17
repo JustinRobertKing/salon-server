@@ -1,13 +1,21 @@
 let mongoose = require('mongoose')
 
 let appointmentSchema = new mongoose.Schema({
+	date: {
+		type: Number,
+		required: true
+	},
 	start:{
 		type: Number,
-		required:true
+		required: true
 	},
-	length:{
+	end: {
 		type: Number,
-		required:true
+		required: true
+	},
+	apptLength:{
+		type: Number,
+		required: true
 	},
 	stylist:{
 		type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +24,9 @@ let appointmentSchema = new mongoose.Schema({
 	client:{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Stylist'
-	}
+	},
+	notes: String,
+	approved: Boolean
 })
 
 module.exports = mongoose.model('Appointment', appointmentSchema)
