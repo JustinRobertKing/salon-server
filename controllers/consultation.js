@@ -14,7 +14,8 @@ router.post('/', (req, res) => {
 		client: req.body.client,
 		currentHair: req.body.currentHair,
 		dreamHair: req.body.dreamHair,
-		clientComment: req.body.clientComment
+		clientComment: req.body.clientComment,
+		approved: req.body.approved
 	})
 	.then(createdConsultation => {
 		console.log('created consultation', createdConsultation)
@@ -29,23 +30,6 @@ router.post('/', (req, res) => {
 
 // DELETE /consultation/display - update consultation with stylist response
 router.delete('/', (req, res) => {
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('In the DELETE /consultation/ route------');
-	console.log(req.body)
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
 	
 	db.Consultation.deleteOne({ 
 		_id: req.body._id
