@@ -15,7 +15,8 @@ router.post('/', (req, res) => {
 		currentHair: req.body.currentHair,
 		dreamHair: req.body.dreamHair,
 		clientComment: req.body.clientComment,
-		approved: req.body.approved
+		approved: false,
+		scheduled: false
 	})
 	.then(createdConsultation => {
 		console.log('created consultation', createdConsultation)

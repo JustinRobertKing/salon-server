@@ -40,6 +40,10 @@ let consultationSchema = new mongoose.Schema({
 	estimate: {
 		type: Number,
 		required: false,
+	},
+	scheduled: {
+		type: Boolean,
+		required: false
 	}
 
 });
