@@ -4,6 +4,14 @@ const jwt = require('jsonwebtoken')
 const router = express.Router();
 const db = require('../models')
 
+//include code gen
+var CodeGenerator = require('node-code-generator');
+var generator = new CodeGenerator();
+var pattern = 'ABC#+';
+var howMany = 100;
+var options = {};
+
+
 // POST /auth/login route - returns a JWT
 router.post('/login', (req, res) => {
 	console.log('In the POST /auth/login route');
@@ -43,7 +51,36 @@ router.post('/signup', (req, res) => {
 			res.status(409).send({ message: 'Email address already in use' })
 		}
 		// Good - they don't exist yet
-		db.User.create(req.body)
+		//gen a code
+		var myCode = generator.generateCodes('######', 1);
+		console.log("myCode--------", myCode[0])
+
+		//check db for that code
+		db.User.findOne({
+			referral: myCode[0]
+		})
+		.then(results=>{
+	//this only changes once, but does not check again.  
+	//Should make into its own function, and keep calling it until you win
+			if (results) {
+				console.log('CODE IN USE, MAKE ANOTHER')
+				myCode = generator.generateCodes('######', 1);
+				console.log("NEW myCode--------", myCode[0])
+			} 
+		})
+
+		//create a user
+		db.User.create({
+			firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: req.body.password,
+      referral: myCode,
+      phone: req.body.phone,
+      stylist: req.body.stylist, 
+      referralLink: req.body.referralLink
+
+		})
 		.then(createdUser => {
 			// We created a user. Make a token; send it.
 			const token = jwt.sign(createdUser.toJSON(), process.env.JWT_SECRET, {
@@ -65,15 +102,82 @@ router.post('/signup', (req, res) => {
 				});
 
 			} else if (req.body.stylist === 'false') {
-				//make client collection entry
-				db.Client.create({ 
-					user: uid
-					
+
+//check to see if they entered a referral				
+if (req.body.referralLink){
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('REFERRAL LINK:', req.body.referralLink)
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				console.log('')
+				
+				// find the USER by referral
+				db.User.findOne({
+					referral: req.body.referralLink
 				})
+				// find the Stylist from the result
+				.then(foundUser =>{
+					console.log('found USER by referral---',foundUser)
+					db.Stylist.findOne({
+						user: foundUser._id
+					})
+					//create the client with the user info + stylist id
+					.then(foundStylist =>{
+						console.log('found stylist by user---',foundStylist)
+						//make client collection entry
+						db.Client.create({ 
+							user: uid,
+							stylist: foundStylist._id
+						})
+						//add the client to the stylist
+						.then(createdClient=>{
+							console.log('created Client---',createdClient)
+
+							db.Stylist.findOneAndUpdate(
+							//Search Params
+								{	_id: createdClient.stylist },
+							//what to add
+								{$addToSet : { client: createdClient._id }},
+							//options
+								{ safe: true, upsert: true },
+								function(err, model) {
+				        	console.log(err);
+				    		}
+							)
+							.then(updatedStylist=>{
+									console.log('updatedStylist------',updatedStylist)
+							})
+						})
+
+					})
+				})
+
+				
 				.catch((error) => {
 					console.log('Error when creating user', error)
 					res.status(500).send({ message: 'Error creating 2nd step of user'})
 				});
+}
+
 			}
 		})
 	
