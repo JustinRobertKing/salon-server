@@ -66,9 +66,9 @@ router.put('/display', (req, res) => {
 	});
 });
 
-// PUT /consultation/display - update consultation with stylist response
+// PUT /consultation/scheduled - update consultation with stylist response
 router.put('/scheduled', (req, res) => {
-	console.log('In the POST /consultation/display route');
+	console.log('In the POST /consultation/scheduled route');
 	console.log(req.body)
 	db.Consultation.findOneAndUpdate({ 
 		_id: req.body.consultationID
