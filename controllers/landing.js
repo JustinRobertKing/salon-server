@@ -4,6 +4,58 @@ const jwt = require('jsonwebtoken')
 const router = express.Router();
 const db = require('../models')
 
+
+//move to profile.js when you can figure it out
+
+
+router.post('/profile/client', (req, res) => {
+	
+	db.Client.findOne({
+		user: req.body.userId.id
+	})
+	.populate({path:'stylist', populate: {path:'user'}})
+
+	.then(foundUser=>{
+		
+		console.log('found--------->', foundUser)
+		
+		res.send(foundUser)
+		})
+		.catch((error) => {
+			console.log('Error when finding consultations', error)
+			res.status(500).send({ message: 'Error finding consultations'})
+		});
+
+})
+
+router.get('/profile/stylist', (req, res) => {
+	
+	db.Stylist.findOne({
+		id: req.user._id,
+	})
+	.populate([{
+		path: 'client',
+		model: 'Client',
+		populate: {
+			path: 'user',
+			model: 'User'
+		},
+	}])
+
+
+	.then(foundUser=>{
+		
+		console.log('found--------->', foundUser)
+		
+		res.send(foundUser)
+		})
+		.catch((error) => {
+			console.log('Error when finding consultations', error)
+			res.status(500).send({ message: 'Error finding consultations'})
+		});
+
+})
+
 router.post('/', (req, res) => {
 //only unapproved consultations
 	db.Stylist.findOne({
@@ -55,6 +107,7 @@ router.post('/consultationsApproved', (req, res) => {
 })
 
 
+
 router.post('/client', (req, res) => {
 	db.Client.findOne({
 		user: req.body.userId.id
@@ -78,22 +131,35 @@ router.post('/client', (req, res) => {
 	})
 })
 
+// IS THIS USED ANYWHERE????  
+// gives me a 401, using post instead
 
 router.get('/client', (req, res) => {
 	console.log('In the GET /landing/client route')
+	console.log('')
+		console.log('')
+		console.log('')
+		console.log('')
+		console.log('req.user._id', req.user._id)
+		console.log('')
+		console.log('')
+		console.log('')
+		console.log('')
 	db.Client.findOne({
-		id: req.user._id,
+		user: req.user.id,
 	})
+	.populate({path:'stylist', populate: {path:'user'}})
+
 	.then(foundConsultations => {
 		console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
+		console.log('')
+		console.log('')
+		console.log('')
 		console.log('found', foundConsultations)
 		console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
+		console.log('')
+		console.log('')
+		console.log('')
 		res.send(foundConsultations)
 	})
 	.catch((error) => {

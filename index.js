@@ -57,6 +57,11 @@ app.use('/landing', expressJWT({
 	getToken: fromRequest
 }), require('./controllers/landing'));
 
+// app.use('/profile', expressJWT({
+// 	secret: process.env.JWT_SECRET,
+// 	getToken: fromRequest
+// }), require('./controllers/profile'));
+
 app.use('/appointment', expressJWT({
 	secret: process.env.JWT_SECRET,
 	getToken: fromRequest
