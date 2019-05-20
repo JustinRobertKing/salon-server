@@ -135,33 +135,24 @@ router.get('/', (req, res) => {
 
 router.post('/appointment', (req, res) => {
 	console.log('In the POST /landing/appointment route')
-	// db.Appointment.create({
-	// 	start: 1557798958,
-	// 	length: 9900,
-	// 	stylist: '5cddac01a02b2f4617466b5d',
-	// 	client: '5cddb1d8a02b2f4617466b5f',
-	// })
-	// .then(createdAppointment => {
-	// 	console.log('created Appointment', createdAppointment)
-	// 	res.send({ createdAppointment });
-	// })
-	// .catch((error) => {
-	// 	console.log('Error when creating Appointment', error)
-	// 	res.status(500).send({ message: 'Error creating Appointment'})
-	// });
-	db.Appointment.find({
-		stylist: req.body.userId.id
+	db.Stylist.findOne({
+		user: req.body.userId.id,
 	})
-	// .populate('client')
-	// .populate('stylist')
-	.then(foundAppointments => {
-		console.log('found', foundAppointments)
-		res.send(foundAppointments)
+	.then(foundUser=>{
+		db.Appointment.find({
+			stylist: foundUser
+		})
+		.populate({path:'client', model: 'Client', populate: {path:'user', model: 'User'}})
+		.then(foundAppointments => {
+			console.log('found', foundAppointments)
+			res.send(foundAppointments)
+		})
+		.catch((error) => {
+			console.log('Error when finding appointments', error)
+			res.status(500).send({ message: 'Error finding appointments'})
+		});
+
 	})
-	.catch((error) => {
-		console.log('Error when finding appointments', error)
-		res.status(500).send({ message: 'Error finding appointments'})
-	});
 })
 
 module.exports = router;

@@ -32,19 +32,21 @@ router.put('/apptdisplay', (req, res) => {
 	console.log('In the POST /Appointment/display route');
 	console.log(req.body)
 	db.Appointment.findOneAndUpdate({ 
-		_id: req.body.AppointmentID
-	},
-		req.body,
-		{ new: true, useFindAndModify: false }
-	)
-		.then(updatedAppointment => {
-			console.log('updated appointment', updatedAppointment)
-			res.send({ updatedAppointment });
-		})
-		.catch((error) => {
-			console.log('Error when creating Appointment', error)
-			res.status(500).send({ message: 'Error creating Appointment'})
-		});
+		_id: req.body.appointmentID
+	}, {
+		approved: true
+	}, { 
+		new: true, 
+		useFindAndModify: false 
+	})
+	.then(updatedAppointment => {
+		console.log('updated appointment', updatedAppointment)
+		res.send({ updatedAppointment });
+	})
+	.catch((error) => {
+		console.log('Error when creating Appointment', error)
+		res.status(500).send({ message: 'Error creating Appointment'})
+	});
 });
 
 module.exports = router;
