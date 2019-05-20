@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "main": "index.js",
+  "engines": { "node": "v11.13.0" },
   "scripts": {
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
