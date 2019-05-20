@@ -217,7 +217,6 @@ router.post('/appointment', (req, res) => {
 			console.log('Error when finding appointments', error)
 			res.status(500).send({ message: 'Error finding appointments'})
 		});
-
 	})
 })
 

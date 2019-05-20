@@ -49,4 +49,50 @@ router.put('/apptdisplay', (req, res) => {
 	});
 });
 
+router.post('/day/stylist', (req, res) => {
+	console.log('In the POST /appointment/day/stylist route', req.body)
+	db.Stylist.findOne({
+		user: req.body.userId.id,
+	})
+	.then(foundUser=>{
+		db.Appointment.find({
+			stylist: foundUser,
+			date: req.body.date
+		})
+		.populate({path:'client', model: 'Client', populate: {path:'user', model: 'User'}})
+		.populate({path:'stylist', model: 'Stylist', populate: {path:'user', model: 'User'}})
+		.then(foundAppointments => {
+			console.log('found', foundAppointments)
+			res.send(foundAppointments)
+		})
+		.catch((error) => {
+			console.log('Error when finding appointments', error)
+			res.status(500).send({ message: 'Error finding appointments'})
+		});
+	})
+})
+
+router.post('/day/client', (req, res) => {
+	console.log('In the POST /appointment/day/client route')
+	db.Stylist.findOne({
+		user: req.body.userId.id,
+	})
+	.then(foundUser=>{
+		db.Appointment.find({
+			stylist: foundUser,
+			date: req.body.date
+		})
+		.populate({path:'client', model: 'Client', populate: {path:'user', model: 'User'}})
+		.populate({path:'stylist', model: 'Stylist', populate: {path:'user', model: 'User'}})
+		.then(foundAppointments => {
+			console.log('found', foundAppointments)
+			res.send(foundAppointments)
+		})
+		.catch((error) => {
+			console.log('Error when finding appointments', error)
+			res.status(500).send({ message: 'Error finding appointments'})
+		});
+	})
+})
+
 module.exports = router;
