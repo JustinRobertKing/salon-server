@@ -131,12 +131,64 @@ router.post('/client', (req, res) => {
 	})
 })
 
+router.post('/stylist', (req, res) => {
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('landing/stylist')
+	console.log('')
+	console.log(req.user.id)
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+	console.log('')
+
+
+	db.Stylist.findOne({
+		user: req.user.id,
+	})
+	.then(foundUser=>{
+		console.log('')
+		console.log(foundUser)
+		console.log('')
+
+		db.Consultation.find({
+			stylist: foundUser,
+			approved: false
+		})
+		// .populate({path:'stylist', populate: {path:'user'}})
+		.populate({path:'client', populate: {path:'user'}})
+
+		.then(foundConsultations => {
+			console.log('found--------->', foundConsultations)
+			res.send(foundConsultations)
+		})
+		.catch((error) => {
+			console.log('Error when finding consultations', error)
+			res.status(500).send({ message: 'Error finding consultations'})
+		});
+
+	})
+})
+
+
+
 // IS THIS USED ANYWHERE????  
 // gives me a 401, using post instead
 
 router.get('/client', (req, res) => {
-	console.log('In the GET /landing/client route')
-	console.log('')
+		console.log('In the GET /landing/client route')
+		console.log('')
 		console.log('')
 		console.log('')
 		console.log('')

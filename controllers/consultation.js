@@ -38,6 +38,7 @@ router.delete('/', (req, res) => {
 	)
 		.then(deletedConsultation => {
 			console.log('Delted consult', deletedConsultation)
+		res.send(deletedConsultation)
 		})
 		.catch((error) => {
 			console.log('Error when creating consultation', error)
