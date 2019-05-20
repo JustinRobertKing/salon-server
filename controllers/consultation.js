@@ -56,14 +56,35 @@ router.put('/display', (req, res) => {
 		req.body,
 		{ new: true, useFindAndModify: false }
 	)
-		.then(createdConsultation => {
-			console.log('created consult', createdConsultation)
-			res.send({ createdConsultation });
-		})
-		.catch((error) => {
-			console.log('Error when creating consultation', error)
-			res.status(500).send({ message: 'Error creating consultation'})
-		});
+	.then(createdConsultation => {
+		console.log('created consult', createdConsultation)
+		res.send({ createdConsultation });
+	})
+	.catch((error) => {
+		console.log('Error when creating consultation', error)
+		res.status(500).send({ message: 'Error creating consultation'})
+	});
+});
+
+// PUT /consultation/display - update consultation with stylist response
+router.put('/scheduled', (req, res) => {
+	console.log('In the POST /consultation/display route');
+	console.log(req.body)
+	db.Consultation.findOneAndUpdate({ 
+		_id: req.body.consultationID
+	},{
+		scheduled: true
+	},
+	{ new: true, useFindAndModify: false }
+	)
+	.then(createdConsultation => {
+		console.log('created consult', createdConsultation)
+		res.send({ createdConsultation });
+	})
+	.catch((error) => {
+		console.log('Error when creating consultation', error)
+		res.status(500).send({ message: 'Error creating consultation'})
+	});
 });
 
 module.exports = router;
