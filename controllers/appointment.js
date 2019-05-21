@@ -100,4 +100,71 @@ router.post('/day/client', (req, res) => {
 	})
 })
 
+// PUT /appointment/availability - update availability
+router.put('/availability', (req, res) => {
+	console.log('In the PUT /availability route');
+	console.log(req.body)
+	db.Stylist.findOneAndUpdate({ 
+		user: req.body.stylistUser.id
+	}, {
+		availability: {
+			0: [req.body.check1, req.body.start1, req.body.end1],
+			1: [req.body.check2, req.body.start2, req.body.end2],
+			2: [req.body.check3, req.body.start3, req.body.end3],
+			3: [req.body.check4, req.body.start4, req.body.end4],
+			4: [req.body.check5, req.body.start5, req.body.end5],
+			5: [req.body.check6, req.body.start6, req.body.end6],
+			6: [req.body.check7, req.body.start7, req.body.end7],
+		}
+	}, { 
+		new: true, 
+		useFindAndModify: false 
+	})
+	.then(updatedAvailability => {
+		console.log('updated Availability', updatedAvailability)
+		res.send({ updatedAvailability });
+	})
+	.catch((error) => {
+		console.log('Error when creating Availability', error)
+		res.status(500).send({ message: 'Error creating Availability'})
+	});
+});
+
+router.post('/availability/client', (req, res) => {
+	db.Client.findOne({
+		user: req.body.userId.id,
+	})
+	.then(foundClient => {
+		db.Stylist.findOne({
+			client: foundClient._id
+		})
+		.then(stylist => {
+			console.log('blockouts', stylist)
+			res.send(stylist)
+		})
+		.catch((error) => {
+			console.log('Error', error)
+			res.status(500).send({ message: 'Error getting blockouts'})
+		})
+	})
+	.catch((error) => {
+		console.log('Error', error)
+		res.status(500).send({ message: 'Error getting blockouts'})
+	})
+})
+
+router.post('/availability', (req, res) => {
+	db.Stylist.findOne({
+		user: req.body.userId.id,
+	})
+	.then(stylist => {
+		console.log('blockouts', stylist)
+		res.send(stylist)
+	})
+	.catch((error) => {
+		console.log('Error', error)
+		res.status(500).send({ message: 'Error getting blockouts'})
+	});
+})
+
 module.exports = router;
