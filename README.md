@@ -24,6 +24,14 @@ When a client logs in, they will have the option to start a consultation with th
 
 <img src="./screenshots/6.png" alt="Client Landing" width="250"/>
 
+The consultation process allows a user to upload photos of their current hair and their dream hair along with a description of the intended outcome for the service.
+
+<img src="./screenshots/8.png" alt="Upload Photo" width="250"/>
+<img src="./screenshots/11.png" alt="Current Hair" width="250"/>
+<img src="./screenshots/12.png" alt="Dream Hair" width="250"/>
+
+
+
 ## Technical Notes
 
 A single page application (SPA) that uses react-router and axios to interact with a very loosely coupled back-end. The back-end can sign up, log in, or verify a user using JSON web tokens (JWTs). 
