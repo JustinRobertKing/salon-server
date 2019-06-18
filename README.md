@@ -16,15 +16,9 @@ Cut / Color is a full-service consultation and scheduling solution designed for 
 * CSS3
 * Bootstrap
 
-## React Components
-* Auth components: success redirects to profile page
-  * Login
-  * Signup
-* Layout components
-  * Nav
-  * Footer
-* Home (stub)
-* Profile: Authorized route - logged in users only
+## User Flow
+
+When a stylist signs up for an account, a referral code is generated for them to give to their clients. Every time a client signs up for an account using that referral code, they are automatically associated with that stylist. 
 
 ## Technical Notes
 
