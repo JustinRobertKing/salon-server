@@ -22,7 +22,7 @@ When a stylist signs up for an account, a referral code is generated for them to
 
 When a client logs in, they will have the option to start a consultation with their stylist. 
 
-![Alt text](screenshots/6.png =250x "Client Landing")
+<img src="./screenshots/6.png" alt="Client Landing" style="width: 250px;"/>
 
 ## Technical Notes
 
