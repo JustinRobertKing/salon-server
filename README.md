@@ -1,7 +1,7 @@
 # Summary
 Cut / Color is a full-service consultation and scheduling solution designed for salon professionals and is built on the MERN stack.
 
-![Alt text](screenshots/2.png?raw=true "overview")
+![Alt text](screenshots/2.png?raw=true "Overview")
 
 ## Technologies Used
 * Node.js
@@ -19,6 +19,10 @@ Cut / Color is a full-service consultation and scheduling solution designed for 
 ## User Flow
 
 When a stylist signs up for an account, a referral code is generated for them to give to their clients. Every time a client signs up for an account using that referral code, they are automatically associated with that stylist. 
+
+When a client logs in, they will have the option to start a consultation with their stylist. 
+
+![Alt text](screenshots/6.png?raw=true "Client Landing")
 
 ## Technical Notes
 
@@ -119,9 +123,4 @@ POST | /landing/stylist | Find all information for stylist landing page
 POST | /landing/appointment | Find appointment info for stylist landing page
 GET | /landing/profile/stylist | Get info for stylist profile
 POST | /landing/profile/client | Find info for client profile by user id
-
-## Still To Do
-* Make detailed and user-friendly alerts for error/success messages 
-* Make more authorized pages
-* Use cookies instead of localStorage
 
