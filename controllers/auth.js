@@ -14,8 +14,6 @@ var options = {};
 
 // POST /auth/login route - returns a JWT
 router.post('/login', (req, res) => {
-	console.log('In the POST /auth/login route');
-	console.log(req.body);
 	db.User.findOne({ email: req.body.email })
 	.then(user => {
 		// Make sure there is both a user and a password
@@ -42,8 +40,6 @@ router.post('/login', (req, res) => {
 
 // POST /auth/signup route - create a user in the DB and then log them in
 router.post('/signup', (req, res) => {
-	console.log('In the POST /auth/signup route');
-	console.log(req.body);
 	db.User.findOne({ email: req.body.email })
 	.then(user => {
 		// If the user exists, do not let them create a duplicate account
@@ -54,21 +50,19 @@ router.post('/signup', (req, res) => {
 		//gen a code
 		var myCode = generator.generateCodes('######', 1);
 		console.log("myCode--------", myCode[0])
-
 		//check db for that code
 		db.User.findOne({
 			referral: myCode[0]
 		})
 		.then(results=>{
-	//this only changes once, but does not check again.  
-	//Should make into its own function, and keep calling it until you win
+			//this only changes once, but does not check again.  
+			//Should make into its own function, and keep calling it until you win
 			if (results) {
 				console.log('CODE IN USE, MAKE ANOTHER')
 				myCode = generator.generateCodes('######', 1);
 				console.log("NEW myCode--------", myCode[0])
 			} 
 		})
-
 		//create a user
 		db.User.create({
 			firstname: req.body.firstname,
@@ -79,7 +73,6 @@ router.post('/signup', (req, res) => {
       phone: req.body.phone,
       stylist: req.body.stylist, 
       referralLink: req.body.referralLink
-
 		})
 		.then(createdUser => {
 			// We created a user. Make a token; send it.
@@ -87,7 +80,6 @@ router.post('/signup', (req, res) => {
 				expiresIn: 60 * 60 * 24 // 24 hours (in seconds)
 			});
 			res.send({ token });
-
 			let uid = createdUser._id
 			//is this a client, or a stylist?
 			if (req.body.stylist === 'true'){
@@ -95,92 +87,55 @@ router.post('/signup', (req, res) => {
 				db.Stylist.create({ 
 					user: uid
 				})
-				
 				.catch((error) => {
 					console.log('Error when creating user', error)
 					res.status(500).send({ message: 'Error creating 2nd step of user'})
 				});
-
 			} else if (req.body.stylist === 'false') {
-
-//check to see if they entered a referral				
-if (req.body.referralLink){
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('REFERRAL LINK:', req.body.referralLink)
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				console.log('')
-				
-				// find the USER by referral
-				db.User.findOne({
-					referral: req.body.referralLink
-				})
-				// find the Stylist from the result
-				.then(foundUser =>{
-					console.log('found USER by referral---',foundUser)
-					db.Stylist.findOne({
-						user: foundUser._id
+				//check to see if they entered a referral				
+				if (req.body.referralLink){
+					// find the USER by referral
+					db.User.findOne({
+						referral: req.body.referralLink
 					})
-					//create the client with the user info + stylist id
-					.then(foundStylist =>{
-						console.log('found stylist by user---',foundStylist)
-						//make client collection entry
-						db.Client.create({ 
-							user: uid,
-							stylist: foundStylist._id
+					// find the Stylist from the result
+					.then(foundUser =>{
+						db.Stylist.findOne({
+							user: foundUser._id
 						})
-						//add the client to the stylist
-						.then(createdClient=>{
-							console.log('created Client---',createdClient)
-
-							db.Stylist.findOneAndUpdate(
-							//Search Params
-								{	_id: createdClient.stylist },
-							//what to add
-								{$addToSet : { client: createdClient._id }},
-							//options
-								{ safe: true, upsert: true },
-								function(err, model) {
-				        	console.log(err);
-				    		}
-							)
-							.then(updatedStylist=>{
-									console.log('updatedStylist------',updatedStylist)
+						//create the client with the user info + stylist id
+						.then(foundStylist =>{
+							//make client collection entry
+							db.Client.create({ 
+								user: uid,
+								stylist: foundStylist._id
+							})
+							//add the client to the stylist
+							.then(createdClient=>{
+								db.Stylist.findOneAndUpdate(
+									//Search Params
+									{	_id: createdClient.stylist },
+									//what to add
+									{$addToSet : { client: createdClient._id }},
+									//options
+									{ safe: true, upsert: true },
+									function(err, model) {
+					        	console.log(err);
+					    		}
+								)
+								.then(updatedStylist=>{
+										console.log('updatedStylist------',updatedStylist)
+								})
 							})
 						})
-
 					})
-				})
-
-				
-				.catch((error) => {
-					console.log('Error when creating user', error)
-					res.status(500).send({ message: 'Error creating 2nd step of user'})
-				});
-}
-
+					.catch((error) => {
+						console.log('Error when creating user', error)
+						res.status(500).send({ message: 'Error creating 2nd step of user'})
+					});
+				}
 			}
 		})
-	
 		.catch((error) => {
 			console.log('Error when creating user', error)
 			res.status(500).send({ message: 'Error creating user'})
@@ -194,7 +149,6 @@ if (req.body.referralLink){
 
 // This is what is returned when client queries for new user data
 router.post('/current/user', (req, res) => {
-	console.log('In the current user route', req.user)
 	if (!req.user || !req.user.id) {
 		return res.status(401).send({ message: 'Unauthorized' })
 	}

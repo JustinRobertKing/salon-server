@@ -4,32 +4,21 @@ const jwt = require('jsonwebtoken')
 const router = express.Router();
 const db = require('../models')
 
-
-//move to profile.js when you can figure it out
-
-
 router.post('/profile/client', (req, res) => {
-	
 	db.Client.findOne({
 		user: req.body.userId.id
 	})
 	.populate({path:'stylist', populate: {path:'user'}})
-
 	.then(foundUser=>{
-		
-		console.log('found--------->', foundUser)
-		
 		res.send(foundUser)
-		})
-		.catch((error) => {
-			console.log('Error when finding consultations', error)
-			res.status(500).send({ message: 'Error finding consultations'})
-		});
-
+	})
+	.catch((error) => {
+		console.log('Error when finding consultations', error)
+		res.status(500).send({ message: 'Error finding consultations'})
+	});
 })
 
 router.get('/profile/stylist', (req, res) => {
-	
 	db.Stylist.findOne({
 		id: req.user._id,
 	})
@@ -41,34 +30,26 @@ router.get('/profile/stylist', (req, res) => {
 			model: 'User'
 		},
 	}])
-
-
 	.then(foundUser=>{
-		
-		console.log('found--------->', foundUser)
-		
 		res.send(foundUser)
-		})
-		.catch((error) => {
-			console.log('Error when finding consultations', error)
-			res.status(500).send({ message: 'Error finding consultations'})
-		});
-
+	})
+	.catch((error) => {
+		console.log('Error when finding consultations', error)
+		res.status(500).send({ message: 'Error finding consultations'})
+	});
 })
 
 router.post('/', (req, res) => {
-//only unapproved consultations
+	//only unapproved consultations
 	db.Stylist.findOne({
 		user: req.body.userId.id,
 	})
 	.then(foundUser=>{
-
 		db.Consultation.find({
 			stylist: foundUser,
 			approved: false
 		})
 		.populate({path:'client', populate: {path:'user'}})
-
 		.then(foundConsultations => {
 			console.log('found', foundConsultations)
 			res.send(foundConsultations)
@@ -76,25 +57,25 @@ router.post('/', (req, res) => {
 		.catch((error) => {
 			console.log('Error when finding consultations', error)
 			res.status(500).send({ message: 'Error finding consultations'})
-		});
-
-	})
 		})
+	})
+	.catch((error) => {
+		console.log('Error when finding consultations', error)
+		res.status(500).send({ message: 'Error finding consultations'})
+	})
+})
 
 router.post('/consultationsApproved', (req, res) => {
-//only approved consultations
+	//only approved consultations
 	db.Stylist.findOne({
 		user: req.body.userId.id
-		
 	})
 	.then(foundUser=>{
-
 		db.Consultation.find({
 			stylist: foundUser,
 			approved: true
 		})
 		.populate({path:'client', populate: {path:'user'}})
-
 		.then(foundConsultations => {
 			console.log('found', foundConsultations)
 			res.send(foundConsultations)
@@ -104,69 +85,45 @@ router.post('/consultationsApproved', (req, res) => {
 			res.status(500).send({ message: 'Error finding consultations'})
 		});
 	})
+	.catch((error) => {
+		console.log('Error when finding consultations', error)
+		res.status(500).send({ message: 'Error finding consultations'})
+	});
 })
-
-
 
 router.post('/client', (req, res) => {
 	db.Client.findOne({
 		user: req.body.userId.id
 	})
 	.then(foundUser=>{
-
 		db.Consultation.find({
 			client: foundUser
 		})
 		.populate({path:'client', populate: {path:'user'}})
 		.populate({path:'stylist', populate: {path:'user'}})
 		.then(foundConsultations => {
-			console.log('found--------->', foundConsultations)
 			res.send(foundConsultations)
 		})
 		.catch((error) => {
 			console.log('Error when finding consultations', error)
 			res.status(500).send({ message: 'Error finding consultations'})
 		});
-
 	})
+	.catch((error) => {
+		console.log('Error when finding consultations', error)
+		res.status(500).send({ message: 'Error finding consultations'})
+	});
 })
 
 router.post('/stylist', (req, res) => {
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('landing/stylist')
-	console.log('')
-	console.log(req.user.id)
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-
-
 	db.Stylist.findOne({
 		user: req.user.id,
 	})
 	.then(foundUser=>{
-		console.log('')
-		console.log(foundUser)
-		console.log('')
-
 		db.Consultation.find({
 			stylist: foundUser,
 			approved: false
 		})
-		// .populate({path:'stylist', populate: {path:'user'}})
 		.populate({path:'client', populate: {path:'user'}})
 
 		.then(foundConsultations => {
@@ -177,41 +134,19 @@ router.post('/stylist', (req, res) => {
 			console.log('Error when finding consultations', error)
 			res.status(500).send({ message: 'Error finding consultations'})
 		});
-
 	})
+	.catch((error) => {
+		console.log('Error when finding consultations', error)
+		res.status(500).send({ message: 'Error finding consultations'})
+	});
 })
 
-
-
-// IS THIS USED ANYWHERE????  
-// gives me a 401, using post instead
-
 router.get('/client', (req, res) => {
-		console.log('In the GET /landing/client route')
-		console.log('')
-		console.log('')
-		console.log('')
-		console.log('')
-		console.log('req.user._id', req.user._id)
-		console.log('')
-		console.log('')
-		console.log('')
-		console.log('')
 	db.Client.findOne({
 		user: req.user.id,
 	})
 	.populate({path:'stylist', populate: {path:'user'}})
-
 	.then(foundConsultations => {
-		console.log('')
-		console.log('')
-		console.log('')
-		console.log('')
-		console.log('found', foundConsultations)
-		console.log('')
-		console.log('')
-		console.log('')
-		console.log('')
 		res.send(foundConsultations)
 	})
 	.catch((error) => {
@@ -234,15 +169,6 @@ router.get('/', (req, res) => {
 		},
 	}])
 	.then(foundStylist => {
-		console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
-		console.log('found', foundStylist)
-		console.log('')
-	console.log('')
-	console.log('')
-	console.log('')
 		res.send(foundStylist)
 	})
 	.catch((error) => {

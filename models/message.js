@@ -3,11 +3,11 @@ let mongoose = require('mongoose')
 let messageSchema = new mongoose.Schema({
 	stylist:{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Client'
+		ref: 'Stylist'
 	},
 	client:{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Stylist'
+		ref: 'Client'
 	},
 	chat:{
 		type: [{

@@ -31,25 +31,23 @@ router.post('/', (req, res) => {
 
 // DELETE /consultation/display - update consultation with stylist response
 router.delete('/', (req, res) => {
-	
 	db.Consultation.deleteOne({ 
 		_id: req.body._id
-	}
-	)
-		.then(deletedConsultation => {
-			console.log('Delted consult', deletedConsultation)
-		res.send(deletedConsultation)
-		})
-		.catch((error) => {
-			console.log('Error when creating consultation', error)
-			res.status(500).send({ message: 'Error creating consultation'})
-		});
+	})
+	.then(deletedConsultation => {
+		console.log('Delted consult', deletedConsultation)
+	res.send(deletedConsultation)
+	})
+	.catch((error) => {
+		console.log('Error when creating consultation', error)
+		res.status(500).send({ message: 'Error creating consultation'})
+	});
 });
 
 
 // PUT /consultation/display - update consultation with stylist response
 router.put('/display', (req, res) => {
-	console.log('In the POST /consultation/display route');
+	console.log('In the PUT /consultation/display route');
 	console.log(req.body)
 	db.Consultation.findOneAndUpdate({ 
 		_id: req.body.consultationID

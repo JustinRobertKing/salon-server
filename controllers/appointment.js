@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
 	});
 })
 
-// PUT /Appointment/display - update Appointment with stylist response
+// PUT /Appointment/apptdisplay - update Appointment with stylist response
 router.put('/apptdisplay', (req, res) => {
 	console.log('In the POST /Appointment/display route');
 	console.log(req.body)
