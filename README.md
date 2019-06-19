@@ -1,4 +1,3 @@
-Server side repository: https://github.com/JustinRobertKing/salon-server
 Client side repository: https://github.com/JustinRobertKing/salon-client
 
 # Cut / Color
