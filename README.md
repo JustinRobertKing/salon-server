@@ -1,3 +1,6 @@
+Server side repository: https://github.com/JustinRobertKing/salon-server
+Client side repository: https://github.com/JustinRobertKing/salon-client
+
 # Cut / Color
 Cut / Color is a full-service consultation and scheduling solution designed for salon professionals and is built on the MERN stack. 
 
@@ -22,7 +25,7 @@ When a stylist signs up for an account, a referral code is generated for them to
 
 From the stylist's home page, they can set their availabilty and navigate to their schedule where they can schedule an appointment for any of their clients.
 
-<img src="./screenshots/3.png" alt="Set Availability" width="275"/> <img src="./screenshots/23.png" alt="Stylist Schedule" width="275"/> <img src="./screenshots/19.png" alt="Stylist Schedule Appointment" width="275"/>
+<img src="./screenshots/3.png" alt="Set Availability" width="275"/> <img src="./screenshots/23.png" alt="Stylist Schedule" width="275"/> <img src="./screenshots/24.png" alt="Stylist Schedule Appointment" width="275"/>
 
 ### The Consultation Process
 
