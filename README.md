@@ -20,9 +20,9 @@ Cut / Color is a full-service consultation and scheduling solution designed for 
 
 When a stylist signs up for an account, a referral code is generated for them to give to their clients. Every time a client signs up for an account using that referral code, they are automatically associated with that stylist. 
 
-From the stylist's home page, they can set their availabilty and navigate to their schedule.
+From the stylist's home page, they can set their availabilty and navigate to their schedule where they can schedule an appointment for any of their clients.
 
-<img src="./screenshots/15.png" alt="Stylist Landing" width="275"/> <img src="./screenshots/3.png" alt="Set Availability" width="275"/> <img src="./screenshots/23.png" alt="Stylist Schedule" width="275"/>
+<img src="./screenshots/3.png" alt="Set Availability" width="275"/> <img src="./screenshots/23.png" alt="Stylist Schedule" width="275"/> <img src="./screenshots/19.png" alt="Stylist Schedule Appointment" width="275"/>
 
 ### The Consultation Process
 
