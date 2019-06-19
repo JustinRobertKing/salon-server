@@ -30,13 +30,11 @@ The consultation process allows a user to upload photos of their current hair an
 
 This information is saved and kicked over to the stylist. The client will be able to review their pending consultation and delete it if they change their mind before it has made it through the approval process. When the stylist logs in next, they will see the new consultation in their home screen awaiting review. The stylist then determines what the process would entail to achieve the desired result and responds to the client by entering the products necessary, the time required, a cost estimate, and a description of the process for the client to gain a better understanding of the services they need.
 
-<img src="./screenshots/10.png" alt="New Consultation Request" width="275"/>
-<img src="./screenshots/14.png" alt="Consultation Response Form" width="275"/>
+<img src="./screenshots/10.png" alt="New Consultation Request" width="275"/><img src="./screenshots/14.png" alt="Consultation Response Form" width="275"/>
 
 The client can now review the response from their stylist and decide if that is a service that they would like to book. When a client makes a booking from an approved consultation, the stylist and length of the appointment are prefilled to ensure that the stylist can perform the service in it's entirety. This also prevents clients from trying to squeeze a service in where there just isn't enough time. 
 
-<img src="./screenshots/1.png" alt="Consultation Approved" width="275"/>
-<img src="./screenshots/22.png" alt="Book Appointment From Consultation" width="275"/>
+<img src="./screenshots/1.png" alt="Consultation Approved" width="275"/><img src="./screenshots/22.png" alt="Book Appointment From Consultation" width="275"/>
 
 
 
