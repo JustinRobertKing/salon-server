@@ -22,15 +22,15 @@ When a stylist signs up for an account, a referral code is generated for them to
 
 When a client logs in, they will have the option to start a consultation with their stylist. 
 
-<img src="./screenshots/6.png" alt="Client Landing" width="300"/>
+<img src="./screenshots/6.png" alt="Client Landing" width="275"/>
 
 The consultation process allows a user to upload photos of their current hair and their dream hair using a cloudinary widget along with a description of the intended outcome for the service.
 
-<img src="./screenshots/8.png" alt="Upload Photo" width="300"/><img src="./screenshots/11.png" alt="Current Hair" width="300"/><img src="./screenshots/12.png" alt="Dream Hair" width="300"/>
+<img src="./screenshots/8.png" alt="Upload Photo" width="275"/><img src="./screenshots/11.png" alt="Current Hair" width="275"/><img src="./screenshots/12.png" alt="Dream Hair" width="275"/>
 
 This information is saved and kicked over to the stylist. The client will be able to review their pending consultation and delete it if they change their mind before it has made it through the approval process. 
 
-<img src="./screenshots/12.png" alt="Dream Hair" width="300"/>
+<img src="./screenshots/12.png" alt="Dream Hair" width="275"/>
 
 
 
